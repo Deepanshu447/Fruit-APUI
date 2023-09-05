@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fetch API Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: sans-serif;
+      }
+
+      select {
+        height: 100%;
+        width: 100%;
+        outline: none;
+        border: 1px solid rgb(12, 12, 90);
+      }
+
+      .selectInput {
+        margin: 30px auto;
+        height: 40px;
+        width: 80%;
+      }
+
+      .selectInput option {
+        font-size: 1rem;
+        margin: 0;
+        color: rgb(2, 2, 92);
+      }
+
+      .Div {
+        margin: auto;
+        height: 40vh;
+        width: 300px;
+        /* border: 1px solid red;   */
+      }
+
+      p {
+        color: rgb(255, 0, 0);
+        display: inline-block;
+      }
+
+      .Div h4 {
+        font-size: 1rem;
+        text-align: left;
+        margin: 10px;
+      }
+
+      .main {
+        margin: 40px auto;
+        height: 60vh;
+        width: 40%;
+        border: 1px solid  rgb(167, 155, 155);
+        border-radius: 10px;
+      }
+
+      /* -------media Query-------- */
+      @media screen and (max-width: 414px) {
+       .main{
+              width: 80%;
+       }
+       .selectInput option {
+        font-size: 8px;
+      }
+       .Div{
+              border: 1px solid darkblue;
+              width: 70%;
+              height: 30vh;
+              margin: 10px auto;
+       }
+      }
+      /* -------------media QueryFor---Medium Devices------- */
+</style>
+  </head>
+  <body>
+    <center>
+      <h1>Fruit API</h1>
+    </center>
+    <div class="main">
+      <div class="selectInput">
+        <select onchange="changeInput()" id="selectInput">
+          <option value="select">---Select Fruits---</option>
+          <option value="persimmon">Persimmon</option>
+          <option value="strawberry">Strawberry</option>
+          <option value="banana">Banana</option>
+          <option value="tomato">Tomato</option>
+          <option value="mango">Mango</option>
+          <option value="orange">Orange</option>
+          <option value="pineapple">Pineapple</option>
+          <option value="dragonfruit">Dragonfruit</option>
+          <option value="grape">Grape</option>
+          <option value="avocado">Avocado</option>
+          <option value="Cherry">Cherry</option>
+          <option value="Peach">Peach</option>
+          <option value="Jackfruit">Jackfruit</option>
+          <option value="Lime">Lime</option>
+          <option value="Gooseberry">Gooseberry</option>
+          <option value="Pineapple">Pineapple</option>
+          <option value="Lychee">Lychee</option>
+          <option value="Passionfruit">Passionfruit</option>
+          <option value="Watermelon">Watermelon</option>
+          <option value="Apple">Apple</option>
+          <option value="Guava">Guava</option>
+          <option value="Pomegranate">Pomegranate</option>
+        </select>
+      </div>
+      <!-- ----------nutritions------------ -->
+      <div class="Div">
+        <h4 id="fruitName"></h4>
+        <h4 id="calories"></h4>
+        <h4 id="carbohydrates"></h4>
+        <h4 id="fat"></h4>
+        <h4 id="protein"></h4>
+        <h4 id="sugar"></h4>
+      </div>
+    </div>
+    <script>
+      const changeInput = () => {
+        let frname = document.getElementById("fruitName");
+        // ------Input values ----------
+        let Cal = document.getElementById("calories");
+        let Car = document.getElementById("carbohydrates");
+        let Fat = document.getElementById("fat");
+        let Prote = document.getElementById("protein");
+        let Sug = document.getElementById("sugar");
+        let Fruits = document.getElementById("selectInput").value;
+        let response = fetch(`https://www.fruityvice.com/api/fruit/${Fruits}`)
+          .then((resp) => resp.json())
+          .then(function Response(Resp) {
+            // console.log(Resp);
+            console.log(Resp.nutritions);
+            frname.innerHTML = ` <p> Fruit Name</p>: ${Resp.name}`;
+            Cal.innerHTML = `<p> Calories </p>: ${Resp.nutritions.calories}`;
+            Car.innerHTML = `<p> carbohydrates</p>:${Resp.nutritions.carbohydrates}`;
+            Fat.innerHTML = ` <p>fat </p>: ${Resp.nutritions.fat}`;
+            Prote.innerHTML = `<p> Protein </p>: ${Resp.nutritions.protein}`;
+            Sug.innerHTML = `<p> sugar </p>: ${Resp.nutritions.sugar} `;
+          });
+      };
+    </script>
+  </body>
+</html>
